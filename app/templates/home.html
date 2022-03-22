@@ -1,0 +1,206 @@
+{% extends 'layout.html' %}
+<!--Navigation-->
+{% block navigation %}
+    <div class="content-section nav-left">
+        <form method="POST" action="">
+            {{ formAct.hidden_tag() }}
+            <fieldset class="list-group">
+                <h3>Aktivitäten</h3>
+                <p class='text-muted list-group'>
+                    {% if info['category'] %}
+                        <details class="list-group-item" open>
+                            <summary>Kategorien</summary>
+                            {% for row in searchElements[0] %}
+                                <div class="checkbox">
+                                    {% if row[0] in info['category'] %}
+                                        <input type="checkbox" name="category" value={{ row[0] }} checked="checked">
+                                    {% else %}
+                                        <input type="checkbox" name="category" value={{ row[0] }}>
+                                    {% endif %}
+                                    <label for="category">{{ row[1] }}</label>
+                                </div>
+                            {% endfor %}
+                        </details>
+                    {% else %}
+                        <details class="list-group-item">
+                            <summary>Kategorien</summary>
+                            {% for row in searchElements[0] %}
+                                <div class="checkbox">
+                                    <input type="checkbox" name="category" value={{ row[0] }}>
+                                    <label for="category">{{ row[1] }}</label>
+                                </div>
+                            {% endfor %}
+                        </details>
+                    {% endif %}
+                    {% if info['sights'] %}
+                        <details class="list-group-item" open>
+                            <summary>Sehenswürdigkeiten</summary>
+                            {% for row in searchElements[1] %}
+                                <div class="checkbox">
+                                    {% if row[0] in info['sights'] %}
+                                        <input type="checkbox" name="sights" value={{ row[0] }} checked="checked">
+                                    {% else %}
+                                        <input type="checkbox" name="sights" value={{ row[0] }}>
+                                    {% endif %}
+                                    <label for="sights">{{ row[1] }}</label>
+                                </div>
+                            {% endfor %}
+                        </details>
+                    {% else %}
+                        <details class="list-group-item">
+                            <summary>Sehenswürdigkeiten</summary>
+                            {% for row in searchElements[1] %}
+                                <div class="checkbox">
+                                    <input type="checkbox" name="sights" value={{ row[0] }}>
+                                    <label for="sights">{{ row[1] }}</label>
+                                </div>
+                            {% endfor %}
+                        </details>
+                    {% endif %}
+                    {% if info['lang'] %}
+                        <details class="list-group-item" open>
+                            <summary>Sprachen</summary>
+                            {% for row in searchElements[2] %}
+                                <div class="checkbox">
+                                    {% if row[0] in info['lang'] %}
+                                        <input type="checkbox" name="lang" value={{ row[0] }} checked="checked">
+                                    {% else %}
+                                        <input type="checkbox" name="lang" value={{ row[0] }}>
+                                    {% endif %}
+                                    <label for="lang">{{ row[1] }}</label>
+                                </div>
+                            {% endfor %}
+                        </details>
+                    {% else %}
+                        <details class="list-group-item">
+                            <summary>Sprachen</summary>
+                            {% for row in searchElements[2] %}
+                                <div class="checkbox">
+                                    <input type="checkbox" name="lang" value={{ row[0] }}>
+                                    <label for="lang">{{ row[1] }}</label>
+                                </div>
+                            {% endfor %}
+                        </details>
+                    {% endif %}
+                    {% if info['price'] %}
+                        <details class="list-group-item" open>
+                            <summary>Preis</summary>
+                            <div class="checkbox">
+                                {% if 'until_15' in info['price'] %}
+                                    <input type="checkbox" name="price" value="until_15" checked="checked">
+                                {% else %}
+                                    <input type="checkbox" name="price" value="until_15">
+                                {% endif %}
+                                <label for="price">Bis 15 €</label>
+                            </div>
+                            <div class="checkbox">
+                                {% if '15to25' in info['price'] %}
+                                    <input type="checkbox" name="price" value="15to25" checked="checked">
+                                {% else %}
+                                    <input type="checkbox" name="price" value="15to25">
+                                {% endif %}
+                                <label for="price">15 - 25 €</label>
+                            </div>
+                            <div class="checkbox">
+                                {% if 'more_than_25' in info['price'] %}
+                                    <input type="checkbox" name="price" value="more_than_25" checked="checked">
+                                {% else %}
+                                    <input type="checkbox" name="price" value="more_than_25">
+                                {% endif %}
+                                <label for="price">Über 25 €</label>
+                            </div>
+                        </details>
+                    {% else %}
+                        <details class="list-group-item">
+                            <summary>Preis</summary>
+                            <div class="checkbox">
+                                <input type="checkbox" name="price" value="until_15">
+                                <label for="price">Bis 15 €</label>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" name="price" value="15to25">
+                                <label for="price">15 - 25 €</label>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" name="price" value="more_than_25">
+                                <label for="price">Über 25 €</label>
+                            </div>
+                        </details>
+                    {% endif %}
+                    {% if info['duration'] %}
+                        <details class="list-group-item" open>
+                            <summary>Dauer</summary>
+                            <div class="checkbox">
+                                {% if 'less_2point5' in info['duration'] %}
+                                    <input type="checkbox" name="duration" value="less_2point5" checked="checked">
+                                {% else %}
+                                    <input type="checkbox" name="duration" value="less_2point5">
+                                {% endif %}
+                                <label for="duration">Bis 2,5 Stunden</label>
+                            </div>
+                            <div class="checkbox">
+                                {% if '2point5_4' in info['duration'] %}
+                                    <input type="checkbox" name="duration" value="2point5_4" checked="checked">
+                                {% else %}
+                                    <input type="checkbox" name="duration" value="2point5_4">
+                                {% endif %}
+                                <label for="duration">2,5 - 4 Stunden</label>
+                            </div>
+                            <div class="checkbox">
+                                {% if 'whole' in info['duration'] %}
+                                    <input type="checkbox" name="duration" value="whole" checked="checked">
+                                {% else %}
+                                    <input type="checkbox" name="duration" value="whole">
+                                {% endif %}
+                                <label for="duration">Ganztägig</label>
+                            </div>
+                        </details>
+                    {% else %}
+                        <details class="list-group-item">
+                            <summary>Dauer</summary>
+                            <div class="checkbox">
+                                <input type="checkbox" name="duration" value="less_2point5">
+                                <label for="duration">Bis 2,5 Stunden</label>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" name="duration" value="2point5_4">
+                                <label for="duration">2,5 - 4 Stunden</label>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" name="duration" value="whole">
+                                <label for="duration">Ganztägig</label>
+                            </div>
+                        </details>
+                    {% endif %}
+                </p>
+                <div class='list-group'>
+                    {{ formAct.submit(class='btn btn-outline-info') }}
+                </div>
+            </fieldset>
+        </form>
+    </div>
+{% endblock navigation %}
+
+<!--Content-->
+{% block content %}  
+    {% for tour in tours %}
+        <article class="media content-section">
+            <span class="tour-img"><img src="/static/tour_pics/{{ tour[6] }}.jpg"></span>
+            <div class="media-body" style="float: left;">
+                <div class="tour-metadata">
+                    <small class="text-muted">{{ tour[3] }}</small>
+                </div>
+                <h2><a class="tour-title" href="{{ url_for('tours.bookTour', tourPK=tour[4], tourID=tour[5]) }}">{{ tour[0] }}</a></h2>
+                <h3>in {{ tour[1] }}</h3>
+                <span style="float: right; vertical-align: bottom;">{{ tour[2] }} € pro Person</span>
+            </div>
+        </article>
+    {% endfor %}
+    <div style="text-align: center;">
+        {% if pages != 2 %}
+            {% for page_nr in range(1, (pages)) %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_nr, info=info) }}">{{ page_nr }}</a>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock content %}

@@ -1,0 +1,103 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class='content-section'>
+        <fieldset class='form-group'>
+            <h2 class='border-bottom mb-4'>{{ tour[0] }}</h2>
+            <div class='form-group'>
+                <img style="width: 100%; margin-bottom: 10px;" src="../static/tour_large/{{ tour[1] }}.jpg"/>
+                <p>
+                    {% block description %}{% endblock %}
+                </p>
+                <div>
+                    <h3>Über diese Aktivität</h3>
+                    <h5>Mühelose Stornierung</h5>
+                    <p>Stornierung bis zu 24 Stunden vor Beginn mit vollständiger Rückerstattung</p>
+                    <h5>Ausgedruckter oder mobiler Voucher akzeptiert</h5>
+                    <p>Nutzen Sie Ihr Telefon oder drucken Sie Ihren Voucher aus</p>
+                    <h5>Sofortige Bestätigung</h5>
+                    <p></p>
+                    {% if tour[2]==24.0 %}
+                        <h5>Gültigkeit 1 Tag</h5>
+                        <p>ab erster Aktivierung</p>
+                    {% else %}
+                        <h5>Dauer {{ tour[2] }} Stunden</h5>
+                        <p>Überprüfen Sie die Verfügbarkeit, um die Startzeiten zu sehen</p>
+                    {% endif %}
+                    {% if tourcat[0]==4 %}
+                        <h5>Sprache der Karte</h5>
+                    {% else %}
+                        <h5>Guide</h5>
+                    {% endif %}
+                    <p>{{ tourlang }}</p>
+                </div>
+                <form method="POST" action="">
+                    <div class="list-group-item booking">
+                        <div>
+                            <div style="width: 31%; float: left;">
+                                <h5>Teilnehmer</h5>
+                                <select class="button" name="selectedParticipants">
+                                    {% if tour[3] %}
+                                        {% for persons in range(1, (tour[3]+1)) %}
+                                            <option value="lang">{{ persons }}</option>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for persons in range(1, 31) %}
+                                            <option value="lang">{{ persons }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </div>
+                            <div style="width: 31%; float: left; margin-left: 3.5%; margin-right: 3.5%">
+                                <h5>Datum</h5>
+                                <input class="button" type="date" name="selectedDate" value={{ dates[0] }} min={{ dates[0] }} max={{ dates[1] }}>
+                            </div>
+                            <div style="width: 31%; float: right;">
+                                <h5>Sprache</h5>
+                                <select class="button" name="selectedLang">
+                                    {% for lang in tourlangs %}
+                                        {% if lang == selectLang[0] %}
+                                            <option value="lang" selected>{{ lang }}</option>
+                                        {% else %}
+                                            <option value={{ lang }}>{{ lang }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="button font-weight-sixtwofive">
+                            <a class="tour-title" href="#">Verfügbarkeit prüfen</a>
+                        </div>
+                    </div>
+                </form>
+                <div style="margin-top: 20px;">
+                    <h3>Ihr Erlebnis</h3>
+                    {% if toursights %}
+                        <h5>Highlights</h5>
+                        <ul>
+                            {% for sight in toursights  %}
+                            <li>{{ sight[0] }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <h5>Inbegriffen</h5>
+                    <ul>
+                        {% block include %}{% endblock %}
+                    </ul>
+                </div>
+                {% if tour[4] != 13 and tour[4] != 14 %}
+                    <div>
+                        <h3>Vorbereitung für diese Aktivität</h3>
+                        <p>
+                            {% if tourpoint[0] != 'different' %}
+                                <h5>Treffpunkt</h5>
+                                {{ tourpoint[0] }}<br>
+                            {% endif %}
+                            {% block meetingpoint %}{% endblock %}
+                        </p>
+                    {% block information %}{% endblock %}
+                    </div>
+                {% endif %}
+            </div>
+        </fieldset>
+    </div>
+{% endblock content %}
