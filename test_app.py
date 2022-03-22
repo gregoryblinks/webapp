@@ -1,4 +1,5 @@
 import app
+
 import unittest
 
 class MyTestCase(unittest.TestCase):
@@ -10,7 +11,7 @@ class MyTestCase(unittest.TestCase):
     def test_home(self):
         result = self.app.get('/')
         # Make your assertions
-        self.assertTrue(result, '/home')
+        self.assertTrue(result, '/')
 
 if __name__ == '__main__':
     unittest.main()
