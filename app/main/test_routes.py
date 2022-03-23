@@ -1,12 +1,12 @@
-import utils
+import routes
 
 import unittest
 
 class MyTestCase(unittest.TestCase):
 
     def setUp(self):
-        utils.app.testing = True
-        self.app = utils.app.test_client()
+        routes.app.testing = True
+        self.app = routes.app.test_client()
 
     def test_home(self):
         result = self.app.get('/')
