@@ -1,0 +1,8 @@
+def test_home(self):
+        response=self.client.get("/") #hier den slash durch die jeweilige url ersetzen
+        self.assertEqual(response.status_code,200) 
+	# hier wird der status code den es aufs abrufen dieser website gibt mit 200 (also http code fÃ¼r alles super) verglichen)
+
+def test_normalemethode(self):
+	response=normaleMethode(realistischerParameter)
+	self.assertEqual(response,erwartetesErgebnisDerMethode)
